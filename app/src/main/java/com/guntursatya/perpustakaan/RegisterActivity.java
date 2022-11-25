@@ -40,6 +40,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validate()) {
+                    if (validusername()){
+                        if (validemail()) {
+                            if (validpassw()) {
                     String UserName = editTextUserName.getText().toString();
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
@@ -62,7 +65,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Snackbar.make(buttonRegister, "User already exists with same email ", Snackbar.LENGTH_LONG).show();
                     }
 
-
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -92,6 +97,58 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     //This method is used to validate input given by user
+
+    public boolean validemail(){
+        boolean valid = false;
+
+        String Email = editTextEmail.getText().toString();
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
+            valid = false;
+            textInputLayoutEmail.setText("Please enter valid email!");
+        } else {
+            valid = true;
+            textInputLayoutEmail.setText(null);
+        }
+        return valid;
+    }
+
+    public boolean validpassw(){
+        boolean valid = false;
+        String Password = editTextPassword.getText().toString();
+        if (Password.isEmpty()) {
+            valid = false;
+            textInputLayoutPassword.setText("Please enter valid password!");
+        } else {
+            if (Password.length() > 5) {
+                valid = true;
+                textInputLayoutPassword.setText(null);
+            } else {
+                valid = false;
+                textInputLayoutPassword.setText("Password is to short!");
+            }
+        }
+        return  valid;
+
+    }
+    public boolean validusername(){
+        boolean valid = false;
+        String UserName = editTextUserName.getText().toString();
+        //Handling validation for UserName field
+        if (UserName.isEmpty()) {
+            valid = false;
+            textInputLayoutUserName.setText("Please enter valid username!");
+        } else {
+            if (UserName.length() > 5) {
+                valid = true;
+                textInputLayoutUserName.setText(null);
+            } else {
+                valid = false;
+                textInputLayoutUserName.setText("Username is to short!");
+            }
+        }
+        return valid;
+    }
+
     public boolean validate() {
         boolean valid = false;
 
