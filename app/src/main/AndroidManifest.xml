@@ -14,10 +14,17 @@
         android:theme="@style/Theme.Perpustakaan"
         tools:targetApi="31">
         <activity
-            android:name=".AddActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Perpustakaan.NoActionBar" />
+        <activity
+            android:name=".AddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.Perpustakaan.NoActionBar">
             <intent-filter>

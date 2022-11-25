@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/Perpustakaan/app/src/main/res/drawable/round_corner.xml" value="0.1" />
+        <entry key="..\:/Android/Perpustakaan/app/src/main/res/layout/activity_logiin.xml" value="0.22447916666666667" />
+        <entry key="..\:/Android/Perpustakaan/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Android/Perpustakaan/app/src/main/res/layout/activity_register.xml" value="0.21574074074074073" />
         <entry key="..\:/Android/Perpustakaan/app/src/main/res/layout/row_data.xml" value="0.1" />
         <entry key="..\:/Android/Perpustakaan/app/src/main/res/menu/add_menu.xml" value="0.1" />
         <entry key="..\:/Android/Perpustakaan/app/src/main/res/menu/menu_main.xml" value="0.1" />

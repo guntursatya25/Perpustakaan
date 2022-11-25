@@ -3,6 +3,7 @@ package com.guntursatya.perpustakaan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +19,7 @@ import android.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.guntursatya.perpustakaan.adapters.CustomCursorAdapter;
 import com.guntursatya.perpustakaan.adapters.DBHelper;
+import com.guntursatya.perpustakaan.adapters.User;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView Is;
@@ -28,6 +30,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        String UserName = "admin";
+//        String Emaili = "agung@gmail.com";
+//        String Password = "pass";
+
+
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +45,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         dbHelper = new DBHelper(this);
+
+//        ContentValues values = new ContentValues();
+//
+//        values.put(DBHelper.user, UserName);
+//        values.put(DBHelper.emailu, Emaili);
+//        values.put(DBHelper.pass, Password);
+//        dbHelper.insertUser(values);
+
         Is = (ListView)findViewById(R.id.list_pinjam);
         Is.setOnItemClickListener(this);
 
