@@ -42,13 +42,11 @@ public class LoginActivity extends AppCompatActivity {
 
         session = new SessionManager(this);
 
-//        if (session.isLoggedIn()) {
-//            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(i);
-//            finish();
-//        }
-
-
+        if (session.isLoggedIn()) {
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
 
         textViewCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,13 +72,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         session.setLogin(true);
 
-//                        session.saveSession(Email);
-//                        pref.edit().putString("usename", Email).commit();
-
-//                        String sesiemail = pref.getString("key_email", null);
+                        session.saveSession(Email);
 
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                        intent.putExtra("emailnya",Email);
+//                        intent.putExtra("emailnya",Email);
                         startActivity(intent);
                         finish();
 

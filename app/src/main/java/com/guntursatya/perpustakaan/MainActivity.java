@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,28 +26,45 @@ import com.guntursatya.perpustakaan.sessions.SessionManager;
 
 import java.util.HashMap;
 
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView Is;
     DBHelper dbHelper;
     Context context;
 
     SharedPreferences pref;
+    int PRIVATE_MODE = 0;
+
+    private static final String PREF_NAME = "session";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String Email= getIntent().getExtras().getString("emailnya");
+
+        pref = getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        String Email= pref.getString("key_email", "");
+
+//        String Email= getIntent().getExtras().getString("emailnya");
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fablogout = findViewById(R.id.fabuser);
+
+        fablogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent);
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, AddActivity.class);
-                intent.putExtra("emailn",Email);
+//                intent.putExtra("emailn",Email);
                 startActivity(intent);
-//                startActivity(new Intent(MainActivity.this, AddActivity.class));
             }
         });
 
@@ -55,12 +73,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Is = (ListView)findViewById(R.id.list_pinjam);
         Is.setOnItemClickListener(this);
 
-
         setupListView();
     }
 
     private void setupListView() {
-        String Email= getIntent().getExtras().getString("emailnya");
+//        String Email= getIntent().getExtras().getString("emailnya");
+        pref = getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        String Email= pref.getString("key_email", "");
 
         Cursor cursor = dbHelper.Datain(Email);
         CustomCursorAdapter customCursorAdapter = new CustomCursorAdapter(this, cursor, 1);

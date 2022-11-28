@@ -71,13 +71,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor checkUser(String user, String passw){
+    public Cursor checkUser(String emaili){
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cur = db.rawQuery("SELECT * FROM " + SQL_TABLE_USERS + " WHERE " + KEY_USER_NAME+ " = " + user + " AND " + KEY_PASSWORD + " = " + passw, null);
-
+//        Cursor cur = db.rawQuery("SELECT * FROM " + SQL_TABLE_USERS + " WHERE " + KEY_USER_NAME+ " = " + user + " AND " + KEY_PASSWORD + " = " + passw, null);
+        Cursor cur = db.rawQuery("select * from "+ SQL_TABLE_USERS +" where "+KEY_EMAIL+"= ?", new String[]{emaili});
         return cur;
     }
+
     //Get All SQLite Data
     public Cursor allData(){
         db = getWritableDatabase();
@@ -85,7 +86,6 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cur = db.rawQuery("SELECT * FROM " + tabel_name + " ORDER BY " + row_id + " DESC ", null);
         return cur;
     }
-
 
     //GET 1 DATA BY ID
     public Cursor oneData(long id){
@@ -100,27 +100,19 @@ public class DBHelper extends SQLiteOpenHelper {
         return cur;
     }
 
-//    Insert User
-//    public void insertUser(ContentValues values){
-//        db.insert(tabel_user, null, values);
-//    }
-
     //Insert Data
     public void insertData(ContentValues values){
-
         db = getWritableDatabase();
 
         db.insert(tabel_name, null, values);
     }
 
-    //Update Data
     public void updateData(ContentValues values, long id){
         db = getWritableDatabase();
 
         db.update(tabel_name, values, row_id + "=" + id, null);
     }
 
-    //Delete Data
     public void deleteData(long id){
 
         db = getWritableDatabase();
@@ -128,25 +120,16 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    //using this method we can add users to user table
     public void addUser(User user) {
 
-        //get writable database
         SQLiteDatabase db = getWritableDatabase();
 
-        //create content values to insert
         ContentValues values = new ContentValues();
 
-        //Put username in  @values
         values.put(KEY_USER_NAME, user.userName);
-
-        //Put email in  @values
         values.put(KEY_EMAIL, user.email);
-
-        //Put password in  @values
         values.put(KEY_PASSWORD, user.password);
 
-        // insert row
         long todo_id = db.insert(TABLE_USERS, null, values);
     }
 
@@ -167,21 +150,18 @@ public class DBHelper extends SQLiteOpenHelper {
                 return user1;
             }
         }
-
-        //if user password does not matches or there is no record with that email then return @false
         return null;
     }
 
     public boolean isEmailExists(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USERS,// Selecting Table
-                new String[]{KEY_ID, KEY_USER_NAME, KEY_EMAIL, KEY_PASSWORD},//Selecting columns want to query
+        Cursor cursor = db.query(TABLE_USERS,
+                new String[]{KEY_ID, KEY_USER_NAME, KEY_EMAIL, KEY_PASSWORD},
                 KEY_EMAIL + "=?",
-                new String[]{email},//Where clause
+                new String[]{email},
                 null, null, null);
 
         if (cursor != null && cursor.moveToFirst()&& cursor.getCount()>0) {
-            //if cursor has value then in user database there is user associated with this given email so return true
             return true;
         }
 
