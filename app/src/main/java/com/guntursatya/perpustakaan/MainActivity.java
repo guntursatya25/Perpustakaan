@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,66 +21,68 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.guntursatya.perpustakaan.adapters.CustomCursorAdapter;
 import com.guntursatya.perpustakaan.adapters.DBHelper;
 import com.guntursatya.perpustakaan.adapters.User;
+import com.guntursatya.perpustakaan.sessions.SessionManager;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView Is;
     DBHelper dbHelper;
     Context context;
+
+    SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        String UserName = "admin";
-//        String Emaili = "agung@gmail.com";
-//        String Password = "pass";
-
+        String Email= getIntent().getExtras().getString("emailnya");
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddActivity.class));
+                Intent intent=new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("emailn",Email);
+                startActivity(intent);
+//                startActivity(new Intent(MainActivity.this, AddActivity.class));
             }
         });
 
         dbHelper = new DBHelper(this);
 
-//        ContentValues values = new ContentValues();
-//
-//        values.put(DBHelper.user, UserName);
-//        values.put(DBHelper.emailu, Emaili);
-//        values.put(DBHelper.pass, Password);
-//        dbHelper.insertUser(values);
-
         Is = (ListView)findViewById(R.id.list_pinjam);
         Is.setOnItemClickListener(this);
+
 
         setupListView();
     }
 
     private void setupListView() {
-        Cursor cursor = dbHelper.allData();
+        String Email= getIntent().getExtras().getString("emailnya");
+
+        Cursor cursor = dbHelper.Datain(Email);
         CustomCursorAdapter customCursorAdapter = new CustomCursorAdapter(this, cursor, 1);
         Is.setAdapter(customCursorAdapter);
     }
 
+//    private void setupListView() {
+//        Cursor cursor = dbHelper.allData();
+//        CustomCursorAdapter customCursorAdapter = new CustomCursorAdapter(this, cursor, 1);
+//        Is.setAdapter(customCursorAdapter);
+//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

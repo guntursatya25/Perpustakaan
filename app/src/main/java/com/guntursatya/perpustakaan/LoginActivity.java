@@ -3,20 +3,18 @@ package com.guntursatya.perpustakaan;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.guntursatya.perpustakaan.adapters.DBHelper;
 import com.guntursatya.perpustakaan.adapters.User;
+import com.guntursatya.perpustakaan.sessions.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
     EditText editTextUsername;
@@ -26,7 +24,12 @@ public class LoginActivity extends AppCompatActivity {
     TextView textInputLayoutPassword;
     TextView textViewCreateAccount;
 
-    Button buttonLogin;
+    TextView buttonLogin;
+
+    SharedPreferences pref;
+
+
+    SessionManager session;
 
     DBHelper dbHelper;
 
@@ -36,6 +39,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         dbHelper = new DBHelper(this);
         initViews();
+
+        session = new SessionManager(this);
+
+//        if (session.isLoggedIn()) {
+//            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(i);
+//            finish();
+//        }
+
 
 
         textViewCreateAccount.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (validate()) {
+
 
                     String Email = editTextUsername.getText().toString();
                     String Password = editTextPassword.getText().toString();
@@ -60,7 +72,15 @@ public class LoginActivity extends AppCompatActivity {
                     if (currentUser != null) {
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
 
+                        session.setLogin(true);
+
+//                        session.saveSession(Email);
+//                        pref.edit().putString("usename", Email).commit();
+
+//                        String sesiemail = pref.getString("key_email", null);
+
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("emailnya",Email);
                         startActivity(intent);
                         finish();
 

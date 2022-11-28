@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,6 +31,8 @@ public class AddActivity extends AppCompatActivity {
     DBHelper dbHelper;
     TextView TvStatus;
     Button BtnProses;
+    SharedPreferences pref;
+
     EditText TxID, TxNama, TxJudul, TxtglPinjam, TxtglKembali, TxStatus;
     long id;
     DatePickerDialog datePickerDialog;
@@ -241,11 +244,14 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void insertAndUpdate(){
+//        String sesiemail = pref.getString("usename","usename");
+
         String idpinjam = TxID.getText().toString().trim();
         String nama = TxNama.getText().toString().trim();
         String judul = TxJudul.getText().toString().trim();
         String tglPinjam = TxtglPinjam.getText().toString().trim();
         String tglKembali = TxtglKembali.getText().toString().trim();
+        String datae = getIntent().getExtras().getString("emailn");
         String status = "Dipinjam";
 
         ContentValues values = new ContentValues();
@@ -253,6 +259,7 @@ public class AddActivity extends AppCompatActivity {
         values.put(DBHelper.row_nama, nama);
         values.put(DBHelper.row_judul, judul);
         values.put(DBHelper.row_kembali, tglKembali);
+        values.put(DBHelper.row_email, datae);
         values.put(DBHelper.row_status, status);
 
         if (nama.equals("") || judul.equals("") || tglKembali.equals("")){

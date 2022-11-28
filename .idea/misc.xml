@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Clone/Perpus/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android/Clone/Perpus/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android/Clone/Perpus/app/src/main/res/layout/content_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Android/Clone/Perpus/app/src/main/res/layout/row_data.xml" value="0.1648148148148148" />
         <entry key="..\:/Android/Perpustakaan/app/src/main/res/drawable/round_corner.xml" value="0.1" />
         <entry key="..\:/Android/Perpustakaan/app/src/main/res/layout/activity_logiin.xml" value="0.22447916666666667" />
         <entry key="..\:/Android/Perpustakaan/app/src/main/res/layout/activity_login.xml" value="0.1" />
@@ -17,7 +21,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

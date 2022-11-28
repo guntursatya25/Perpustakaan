@@ -20,15 +20,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String row_judul = "Judul";
     public static final String row_pinjam = "TglPinjam";
     public static final String row_kembali = "TglKembali";
+    public static final String row_email = "emailn";
     public static final String row_status = "Status";
-
-//    tabel user
-//    public static final String tabel_user = "user";
-//
-//    public static final String id_user = "id";
-//    public static final String user= "username";
-//    public static final String emailu = "email";
-//    public static final String pass = "password";
 
 
     //TABLE NAME
@@ -64,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + tabel_name + "(" + row_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + row_nama + " TEXT," + row_judul + " TEXT," + row_pinjam + " TEXT," + row_kembali + " TEXT," + row_status + " TEXT)";
+                + row_nama + " TEXT," + row_judul + " TEXT," + row_pinjam + " TEXT," + row_kembali + " TEXT," + row_email + " TEXT, " + row_status + " TEXT)";
         db.execSQL(SQL_TABLE_USERS);
         db.execSQL(query);
     }
@@ -78,6 +71,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor checkUser(String user, String passw){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cur = db.rawQuery("SELECT * FROM " + SQL_TABLE_USERS + " WHERE " + KEY_USER_NAME+ " = " + user + " AND " + KEY_PASSWORD + " = " + passw, null);
+
+        return cur;
+    }
     //Get All SQLite Data
     public Cursor allData(){
         db = getWritableDatabase();
@@ -86,6 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return cur;
     }
 
+
     //GET 1 DATA BY ID
     public Cursor oneData(long id){
         db = getWritableDatabase();
@@ -93,12 +94,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return cur;
     }
 
-//    Get User
-//
-//    public Cursor checkUser(String usernamee, String passw){
-//        Cursor cur = db.rawQuery("select * from "+ tabel_user +" where "+user+"= ? AND "+ pass+"= ?", new String[]{usernamee,passw});
-//        return cur;
-//    }
+    public Cursor Datain(String emaili){
+        db = getWritableDatabase();
+        Cursor cur = db.rawQuery("select * from "+ tabel_name +" where "+row_email+"= ?", new String[]{emaili});
+        return cur;
+    }
 
 //    Insert User
 //    public void insertUser(ContentValues values){
