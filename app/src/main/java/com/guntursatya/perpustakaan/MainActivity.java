@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Context context;
 
     SharedPreferences pref;
-    int PRIVATE_MODE = 0;
 
+    int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "session";
 
     @Override
