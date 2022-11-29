@@ -45,6 +45,7 @@ public class UserActivity extends AppCompatActivity {
                 session.setLogout(false);
                 Intent intent = new Intent(UserActivity.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
