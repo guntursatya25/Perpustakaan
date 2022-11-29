@@ -28,20 +28,16 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void saveSession(String Email){
-        editor.putString("key_email", Email); // Storing string
+    public void saveSession(String Email, String Username){
+        editor.putString("key_email", Email);
+        editor.putString("key_username", Username);
         editor.commit();
 
     }
 
-//    public void getSession(){
-//        String sesiemail = pref.getString("key_email", null);
-//        return sesiemail;
-//    }
     public void setLogin(boolean isLoggedIn) {
 
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
-        // commit changes
         editor.commit();
 
         Log.d(TAG, "User login session modified!");
@@ -49,7 +45,6 @@ public class SessionManager {
 
     public void setLogout(boolean islogout) {
         editor.putBoolean(KEY_IS_LOGGEDIN, islogout);
-        // commit changes
         editor.remove(KEY_IS_LOGGEDIN);
         editor.clear();
         editor.commit();
@@ -58,7 +53,6 @@ public class SessionManager {
     }
 
     public boolean isLoggedIn(){
-
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
 }

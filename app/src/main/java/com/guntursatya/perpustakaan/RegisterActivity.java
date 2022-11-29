@@ -119,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
             textInputLayoutPassword.setText("Please enter valid password!");
         } else {
-            if (Password.length() > 5) {
+            if (Password.length() > 4) {
                 valid = true;
                 textInputLayoutPassword.setText(null);
             } else {
@@ -138,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
             textInputLayoutUserName.setText("Please enter valid username!");
         } else {
-            if (UserName.length() > 5) {
+            if (UserName.length() > 3) {
                 valid = true;
                 textInputLayoutUserName.setText(null);
             } else {
@@ -161,7 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
             textInputLayoutUserName.setText("Please enter valid username!");
         } else {
-            if (UserName.length() > 5) {
+            if (UserName.length() > 3) {
                 valid = true;
                 textInputLayoutUserName.setText(null);
             } else {
@@ -184,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
             textInputLayoutPassword.setText("Please enter valid password!");
         } else {
-            if (Password.length() > 5) {
+            if (Password.length() > 4) {
                 valid = true;
                 textInputLayoutPassword.setText(null);
             } else {

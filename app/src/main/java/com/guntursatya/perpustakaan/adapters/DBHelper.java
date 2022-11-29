@@ -1,6 +1,7 @@
 package com.guntursatya.perpustakaan.adapters;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -71,19 +72,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor checkUser(String emaili){
-        SQLiteDatabase db = getReadableDatabase();
+    @SuppressLint("Range")
+    public String getName(String emaili) {
+        db = getWritableDatabase();
 
-//        Cursor cur = db.rawQuery("SELECT * FROM " + SQL_TABLE_USERS + " WHERE " + KEY_USER_NAME+ " = " + user + " AND " + KEY_PASSWORD + " = " + passw, null);
-        Cursor cur = db.rawQuery("select * from "+ SQL_TABLE_USERS +" where "+KEY_EMAIL+"= ?", new String[]{emaili});
-        return cur;
+        String rv = "not found";
+        Cursor csr = db.rawQuery("select * from "+ tabel_name +" where "+row_email+" = "+emaili,null);
+        csr.moveToFirst();
+        rv = csr.getString(csr.getColumnIndex(KEY_USER_NAME));
+
+        return rv;
     }
 
     //Get All SQLite Data
     public Cursor allData(){
         db = getWritableDatabase();
-
         Cursor cur = db.rawQuery("SELECT * FROM " + tabel_name + " ORDER BY " + row_id + " DESC ", null);
+        return cur;
+    }
+
+    public Cursor oneUser(){
+        db = getWritableDatabase();
+        Cursor cur = db.rawQuery("select * from "+ SQL_TABLE_USERS, null);
         return cur;
     }
 
@@ -96,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor Datain(String emaili){
         db = getWritableDatabase();
-        Cursor cur = db.rawQuery("select * from "+ tabel_name +" where "+row_email+"= ?", new String[]{emaili});
+        Cursor cur = db.rawQuery("select * from "+ tabel_name +" where "+row_email+" = ?", new String[]{emaili});
         return cur;
     }
 

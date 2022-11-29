@@ -14,7 +14,7 @@ import com.guntursatya.perpustakaan.sessions.SessionManager;
 
 public class UserActivity extends AppCompatActivity {
 
-    TextView buatEmail;
+    TextView buatEmail, buatUsername;
     Button blogout;
 
     SessionManager session;
@@ -30,11 +30,14 @@ public class UserActivity extends AppCompatActivity {
         session = new SessionManager(this);
 
         buatEmail = findViewById(R.id.buatemailnya);
+        buatUsername = findViewById(R.id.buatusernamenya);
         blogout = findViewById(R.id.btnlogout);
 
         pref = getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         String Email= pref.getString("key_email", "");
+        String Username = pref.getString("key_username","");
 
+        buatUsername.setText(Username);
         buatEmail.setText(Email);
         blogout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         pref = getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        String Email= pref.getString("key_email", "");
+//        String Email= pref.getString("key_email", "");
 
 //        String Email= getIntent().getExtras().getString("emailnya");
 

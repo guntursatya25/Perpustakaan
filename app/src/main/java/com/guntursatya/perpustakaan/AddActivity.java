@@ -255,9 +255,7 @@ public class AddActivity extends AppCompatActivity {
         String judul = TxJudul.getText().toString().trim();
         String tglPinjam = TxtglPinjam.getText().toString().trim();
         String tglKembali = TxtglKembali.getText().toString().trim();
-//        String datae = getIntent().getExtras().getString("emailn");
         String Email= pref.getString("key_email", "");
-
         String status = "Dipinjam";
 
         ContentValues values = new ContentValues();

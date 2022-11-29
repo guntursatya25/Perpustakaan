@@ -2,8 +2,10 @@ package com.guntursatya.perpustakaan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -25,10 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView textViewCreateAccount;
 
     TextView buttonLogin;
-
     SharedPreferences pref;
-
-
     SessionManager session;
 
     DBHelper dbHelper;
@@ -41,6 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         initViews();
 
         session = new SessionManager(this);
+
+//        Cursor cur1 = dbHelper.oneUser();
+//        cur1.moveToFirst();
+//
+//        if (cur1.isNull()){
+//            Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+//            startActivity(i);
+//            finish();
+//        }
 
         if (session.isLoggedIn()) {
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
@@ -60,8 +68,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validate()) {
-
-
                     String Email = editTextUsername.getText().toString();
                     String Password = editTextPassword.getText().toString();
 
@@ -69,26 +75,21 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (currentUser != null) {
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
+                        String username = currentUser.userName;
 
                         session.setLogin(true);
-
-                        session.saveSession(Email);
+                        session.saveSession(Email, username);
 
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-//                        intent.putExtra("emailnya",Email);
                         startActivity(intent);
                         finish();
 
                     } else {
-
                         Snackbar.make(buttonLogin, "Failed to log in , please try again", Snackbar.LENGTH_LONG).show();
-
                     }
                 }
             }
         });
-
-
     }
 
     private void initViews() {
@@ -112,15 +113,12 @@ public class LoginActivity extends AppCompatActivity {
         return result;
     }
 
-    //This method is used to validate input given by user
     public boolean validate() {
         boolean valid = false;
 
-        //Get values from EditText fields
         String Email = editTextUsername.getText().toString();
         String Password = editTextPassword.getText().toString();
 
-        //Handling validation for Email field
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
             valid = false;
             textInputLayoutEmail.setText("Please enter valid Email!");
@@ -129,18 +127,12 @@ public class LoginActivity extends AppCompatActivity {
             textInputLayoutEmail.setText(null);
         }
 
-        //Handling validation for Password field
         if (Password.isEmpty()) {
             valid = false;
             textInputLayoutPassword.setText("Please enter valid password!");
         } else {
-            if (Password.length() > 5) {
                 valid = true;
                 textInputLayoutPassword.setText(null);
-            } else {
-                valid = false;
-                textInputLayoutPassword.setText("Password is to short!");
-            }
         }
 
         return valid;
